@@ -6,9 +6,10 @@ import socket
 
 # object to store three variables
 class DNSnode:
-    hostname = ""
-    address = ""
-    flag = ""
+    def __init__(self, hostname, address, flag):
+        self.hostname = hostname
+        self.address = address 
+        self.flag = flag
 
 def server():
     try:
