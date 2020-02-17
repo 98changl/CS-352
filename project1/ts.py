@@ -4,6 +4,12 @@ import random
 
 import socket
 
+# object to store three variables
+class DNSnode:
+    hostname = ""
+    address = ""
+    flag = ""
+
 def server():
     try:
         ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -22,10 +28,25 @@ def server():
     csockid, addr = ss.accept()
     print ("[S]: Got a connection request from a client at {}".format(addr))
 
+    
+    
     # send a intro message to the client.  
     msg = "Welcome to CS 352!"
     csockid.send(msg.encode('utf-8'))
+    
+    # recieve client input
+    
+    
+    # translate client message into DNS table format
+    hostname
+    address
+    flag
 
+    # DNS table here
+    table = []
+    table.append( DNSnode(hostname, address, flag) )
+    
+    
     # Close the server socket
     ss.close()
     exit()
