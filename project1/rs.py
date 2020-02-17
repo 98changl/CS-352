@@ -4,6 +4,16 @@ import random
 
 import socket
 
+
+class DNS:
+    def __init__(self, Hostname, IP, flag):
+        self.Hostname=Hostname
+        self.IP=IP
+        self.flag=flag
+
+
+DNSList=[]
+
 def server():
     try:
         ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
