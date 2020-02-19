@@ -13,6 +13,17 @@ class DNSnode:
 
 DNSList=[]
 
+with open('/Users/manpreetsingh/Desktop/PROJI-DNSRS.txt','r') as filehandle:
+    filecontents = filehandle.readlines()
+
+    for line in filecontents:
+        fields=line.split()
+        hostname = fields[0]
+        address=fields[1]
+        flag=fields[2]
+        DNSList.append(DNSnode(hostname,address,flag))
+    filehandle.Close()
+
 def server():
     try:
         ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
