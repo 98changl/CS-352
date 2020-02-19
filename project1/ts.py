@@ -10,6 +10,9 @@ class DNSnode:
         self.hostname = hostname
         self.address = address 
         self.flag = flag
+        
+# DNS table here
+table = []
 
 def server():
     try:
@@ -39,20 +42,38 @@ def server():
     
     
     # translate client message into DNS table format
-    hostname
-    address
-    flag
+    
 
-    # DNS table here
-    table = []
-    table.append( DNSnode(hostname, address, flag) )
+    
     
     
     # Close the server socket
     ss.close()
     exit()
 
+def main():
+    # read in file
+    f = open ("PROJI-DNSTS.txt", "r")
+    
+    # set up DNS table
+    global table
+    read = f.readlines()
+    for line in read:
+        # splits the read in string into an array of its elements
+        inputs = line.split()
+        
+        # check to see if the split is valid
+        print(inputs)
+        
+        # add the variables into the DNS table 
+        table.append( DNSnode(hostname, address, flag) )
+    
+    # run the server
+    server()
+    exit()
+    
 if __name__ == "__main__":
+    main()
     t1 = threading.Thread(name='server', target=server)
     t1.start()
 
