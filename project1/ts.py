@@ -3,6 +3,7 @@ import time
 import random
 
 import socket
+import sys
 
 # object to store three variables
 class DNSnode:
@@ -10,33 +11,33 @@ class DNSnode:
         self.hostname = hostname
         self.address = address 
         self.flag = flag
-        
-# DNS table here
-table = []
 
-def server():
+def search(table, hostname):
+    for node in table:
+        if node.hostname == hostname:
+            return node
+    return NULL
+
+def server(table, tsListenPort):
     try:
-        ss = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        ts = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         print("[S]: Server socket created")
     except socket.error as err:
         print('socket open error: {}\n'.format(err))
         exit()
 
-    server_binding = ('', 50007)
-    ss.bind(server_binding)
-    ss.listen(1)
+    server_binding = ('', tsListenPort)
+    ts.bind(server_binding)
+    
+    ts.listen(1)
     host = socket.gethostname()
     print("[S]: Server host name is {}".format(host))
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
-    csockid, addr = ss.accept()
+    
+    # connect with client
+    csockid, addr = ts.accept()
     print ("[S]: Got a connection request from a client at {}".format(addr))
-
-    
-    
-    # send a intro message to the client.  
-    msg = "Welcome to CS 352!"
-    csockid.send(msg.encode('utf-8'))
     
     # recieve client input
     
@@ -44,20 +45,41 @@ def server():
     # translate client message into DNS table format
     
 
+    # search for hostname
+    result = search(table, hostname)
     
-    
+    # reply to client
+    if result == NULL:
+        # send error message to client
+        
+    else:
+        # send node data as a string to client
+        msg = result.hostname + " " + result.address + " " + flag
+        csockid.send(msg.encode('utf-8'))
     
     # Close the server socket
-    ss.close()
+    ts.close()
     exit()
 
 def main():
+    if len(sys.argv) < 1:
+        print('not enough arguments error: {} \n'.format(err))
+        exit()
+    
+    # read in arguments from command
+    args = str(sys.argv)
+    print args
+    tsListenPort = args[0]
+    
     # read in file
     f = open ("PROJI-DNSTS.txt", "r")
     
     # set up DNS table
-    global table
+    table = []
     read = f.readlines()
+    
+    
+    # populate the DNS table with values
     for line in read:
         # splits the read in string into an array of its elements
         inputs = line.split()
@@ -65,11 +87,16 @@ def main():
         # check to see if the split is valid
         print(inputs)
         
+        # set up variables
+        hostname = inputs[0]
+        address = inputs[1]
+        flag = inputs[2]
+        
         # add the variables into the DNS table 
         table.append( DNSnode(hostname, address, flag) )
     
     # run the server
-    server()
+    server(table, tsListenPort)
     exit()
     
 if __name__ == "__main__":
