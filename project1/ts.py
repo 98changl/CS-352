@@ -40,10 +40,10 @@ def server(table, tsListenPort):
     print ("[S]: Got a connection request from a client at {}".format(addr))
     
     # recieve client input
-    
+    data_from_client = cssockid.recv(100)
     
     # translate client message into DNS table format
-    
+    hostname = data_from_client
 
     # search for hostname
     result = search(table, hostname)
@@ -51,13 +51,14 @@ def server(table, tsListenPort):
     # reply to client
     if result == NULL:
         # send error message to client
-        
+        msg = data_from_client + " - ERROR: HOST NOT FOUND"
+        csockid.send(msg.encode('utf-8'))
     else:
         # send node data as a string to client
-        msg = result.hostname + " " + result.address + " " + flag
+        msg = result.hostname + " " + result.address + " " + result.flag
         csockid.send(msg.encode('utf-8'))
     
-    # Close the server socket
+    # close the server socket
     ts.close()
     exit()
 
@@ -101,12 +102,12 @@ def main():
     
 if __name__ == "__main__":
     main()
-    t1 = threading.Thread(name='server', target=server)
-    t1.start()
+    #t1 = threading.Thread(name='server', target=server)
+    #t1.start()
 
-    time.sleep(random.random() * 5)
-    t2 = threading.Thread(name='client', target=client)
-    t2.start()
+    #time.sleep(random.random() * 5)
+    #t2 = threading.Thread(name='client', target=client)
+    #t2.start()
 
-    time.sleep(5)
+    #time.sleep(5)
     print("Done.")
