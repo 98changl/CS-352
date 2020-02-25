@@ -5,7 +5,7 @@ import random
 import socket
 import sys
 
-def client(rsHostname, rsListenPort, tsListenPort):
+def client(table, rsHostname, rsListenPort, tsListenPort):
     # connect to rs server
     try:
         rs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,6 +23,7 @@ def client(rsHostname, rsListenPort, tsListenPort):
     rs.connect(rs_server_binding)
     
     # send data to the server
+    rs.send( table[0] )
 
     # Receive data from the server
     data_from_server = rs.recv(100)
@@ -50,6 +51,7 @@ def client(rsHostname, rsListenPort, tsListenPort):
     ts.connect(ts_server_binding)
     
     # send data to server
+    ts.send( table[0] )
     
     # Receive data from the server
     data_from_server = ts.recv(100)
@@ -69,22 +71,38 @@ def main():
     args = str(sys.argv)
     print args
     
+    # convert arguments into strings to read into client
     rsHostname = args[0]
     rsListenPort = args[1]
     tsListenPort = args[2]
     del args
     
-    client(rsHostname, rsListenPort, tsListenPort)
+    # read in file
+    f = open("PROJI-HNS.txt", "r")
+    
+    # set up list of hostnames 
+    table = []
+    read = f.readlines()
+    
+    # populate the list with hostnames
+    for line in read:
+        # check to see if the line is valid
+        print( line )
+        
+        # add the hostname into the list
+        table.append( line )
+    
+    client(table, rsHostname, rsListenPort, tsListenPort)
     exit()
 
 if __name__ == "__main__":
     main()
-    t1 = threading.Thread(name='server', target=server)
-    t1.start()
+    #t1 = threading.Thread(name='server', target=server)
+    #t1.start()
 
-    time.sleep(random.random() * 5)
-    t2 = threading.Thread(name='client', target=client)
-    t2.start()
+    #time.sleep(random.random() * 5)
+    #t2 = threading.Thread(name='client', target=client)
+    #t2.start()
 
-    time.sleep(5)
+    #time.sleep(5)
     print("Done.")
