@@ -72,10 +72,8 @@ def main():
         exit()
     
     # read in arguments from command
-    strin = str(sys.argv)
-    print ("Arguments: " + strin)
-    args = strin.split()
-    tsListenPort = args[1]
+    
+    tsListenPort = sys.argv[1]
     print ("Port: " + tsListenPort)
     
     # read in file
