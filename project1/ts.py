@@ -26,8 +26,8 @@ def server(table, tsListenPort):
         print('socket open error: {}\n'.format(err))
         exit()
 
-    server_binding = ('', tsListenPort)
-    ts.bind(server_binding)
+    #server_binding = ("localhost", tsListenPort)
+    ts.bind( ('', tsListenPort) )
     
     ts.listen(1)
     host = socket.gethostname()
@@ -35,28 +35,31 @@ def server(table, tsListenPort):
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
     
-    # connect with client
-    csockid, addr = ts.accept()
-    print ("[S]: Got a connection request from a client at {}".format(addr))
+    while True:
+        # connect with client
+        csockid, addr = ts.accept()
+        print ("[S]: Got a connection request from a client at {}".format(addr))
     
-    # recieve client input
-    data_from_client = cssockid.recv(100)
+        # recieve client input
+        data_from_client = csockid.recv(100)
     
-    # translate client message into DNS table format
-    hostname = data_from_client
+        # translate client message into DNS table format
+        hostname = data_from_client
 
-    # search for hostname
-    result = search(table, hostname)
+        # search for hostname
+        result = search(table, hostname)
     
-    # reply to client
-    if result == NULL:
-        # send error message to client
-        msg = data_from_client + " - ERROR: HOST NOT FOUND"
-        csockid.send(msg.encode('utf-8'))
-    else:
-        # send node data as a string to client
-        msg = result.hostname + " " + result.address + " " + result.flag
-        csockid.send(msg.encode('utf-8'))
+        # reply to client
+        if result == NULL:
+            # send error message to client
+            msg = data_from_client + " - ERROR: HOST NOT FOUND"
+            print (msg)
+            csockid.send(msg.encode('utf-8'))
+        else:
+            # send node data as a string to client
+            msg = result.hostname + " " + result.address + " " + result.flag
+            print(msg)
+            csockid.send(msg.encode('utf-8'))
     
     # close the server socket
     ts.close()
@@ -69,16 +72,15 @@ def main():
     
     # read in arguments from command
     args = str(sys.argv)
-    print args
+    print ("Arguments: " + args)
     tsListenPort = args[0]
     
     # read in file
-    f = open ("PROJI-DNSTS.txt", "r")
+    f = open("PROJI-DNSTS.txt", "r")
     
     # set up DNS table
     table = []
     read = f.readlines()
-    
     
     # populate the DNS table with values
     for line in read:
