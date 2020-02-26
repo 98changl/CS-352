@@ -72,9 +72,9 @@ def main():
         exit()
     
     # read in arguments from command
-    
-    tsListenPort = int( sys.argv[1] )
-    print ("Port: " + tsListenPort)
+    arg = sys.argv[1]
+    tsListenPort = int( arg )
+    print (tsListenPort)
     
     # read in file
     f = open("PROJI-DNSTS.txt", "r")
