@@ -15,49 +15,57 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
         exit()
         
     # Define the port on which you want to connect to the server
-    #port = 50007
+    # port = 50007
     localhost_addr = socket.gethostbyname(socket.gethostname())
 
     # connect to the server on local machine
     rs_server_binding = (localhost_addr, rsListenPort)
     rs.connect(rs_server_binding)
     
-    # send data to the server
-    rs.send( table[0] )
+    while name in table:
+        # send data to the server
+        rs.send( name )
 
-    # Receive data from the server
-    data_from_server = rs.recv(100)
-    print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
-    
-    data = data_from_server.split()
-    hostname = data[0]
-    address = data[1]
-    flag = data[2]
-     
-    if address != "-":
-        # output to file here
-        return data_from_server
-    
-    # if rs returns failer, connect to ts server
-    try:
-        ts = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print("[C]: Client socket created")
-    except socket.error as err:
-        print('socket open error: {} \n'.format(err))
-        exit()
-        
-    # connect to the server on local machine
-    ts_server_binding = (hostname, tsListenPort) # the returned host from rs is the ts hostname
-    ts.connect(ts_server_binding)
-    
-    # send data to server
-    ts.send( table[0] )
-    
-    # Receive data from the server
-    data_from_server = ts.recv(100)
-    print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
+        # Receive data from the server
+        data_from_server = rs.recv(100)
+        print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
+
+        # open text file to write
+        resolve = open("RESOLVED.txt", "w")
+
+        data = data_from_server.split()
+        hostname = data[0]
+        address = data[1]
+        flag = data[2]
+
+        if address != "-":
+            # output to file here
+            resolve.write( data )
+        else:
+            # if rs returns failer, connect to ts server
+            try:
+                ts = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                print("[C]: Client socket created")
+            except socket.error as err:
+                print('socket open error: {} \n'.format(err))
+                exit()
+
+            # connect to the server on local machine
+            ts_server_binding = (hostname, tsListenPort) # the returned host from rs is the ts hostname
+            ts.connect(ts_server_binding)
+
+            # send data to server
+            ts.send( name )
+
+            # Receive data from the server
+            data_from_server = ts.recv(100)
+            print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
+            
+            # write to file
+            resolve.write( data_from_server )
     
     # close the client socket
+    resolve.close()
     rs.close()
     ts.close()
     exit()
@@ -69,7 +77,7 @@ def main():
     
     # read in arguments from command
     args = str(sys.argv)
-    print args
+    print ( args )
     
     # convert arguments into strings to read into client
     rsHostname = args[0]
