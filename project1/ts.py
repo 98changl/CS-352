@@ -28,6 +28,7 @@ def server(table, tsListenPort):
 
     #server_binding = ("localhost", tsListenPort)
     ts.bind( ('', tsListenPort) )
+    print("[S]: Server bind created")
     
     ts.listen(1)
     host = socket.gethostname()
@@ -74,6 +75,7 @@ def main():
     args = str(sys.argv)
     # print ("Arguments: " + args)
     tsListenPort = args[1]
+    print (tsListenPort)
     
     # read in file
     f = open("PROJI-DNSTS.txt", "r")
@@ -88,7 +90,7 @@ def main():
         inputs = line.split()
         
         # check to see if the split is valid
-        print(inputs)
+        #print(inputs)
         
         # set up variables
         hostname = inputs[0]
