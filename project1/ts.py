@@ -74,7 +74,7 @@ def main():
     # read in arguments from command
     args = str(sys.argv)
     # print ("Arguments: " + args)
-    tsListenPort = args[1]
+    tsListenPort = args[2]
     print (tsListenPort)
     
     # read in file
@@ -94,8 +94,11 @@ def main():
         
         # set up variables
         hostname = inputs[0]
+        print (hostname)
         address = inputs[1]
+        print(address)
         flag = inputs[2]
+        print(flag)
         
         # add the variables into the DNS table 
         table.append( DNSnode(hostname, address, flag) )
