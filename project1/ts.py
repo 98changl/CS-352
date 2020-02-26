@@ -72,8 +72,8 @@ def main():
     
     # read in arguments from command
     args = str(sys.argv)
-    print ("Arguments: " + args)
-    tsListenPort = args[0]
+    # print ("Arguments: " + args)
+    tsListenPort = args[1]
     
     # read in file
     f = open("PROJI-DNSTS.txt", "r")
