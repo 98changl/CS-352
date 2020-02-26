@@ -35,30 +35,26 @@ def server(table, rsListenPort):
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
 
-     # conenct and receive client input
-    while true:
-    csockid, addr = rs.accept()
-    from_client=''
-    while true:
-        data = csockid.recv(4096)
-        if not data:break
-        from_client += data
+
+    while True:
+        csockid, addr = rs.accept(100)
+        print ("[S]: Got a connection request from a client at {}".format(addr))
 
 
-    #translate client message into DNS table format
+        data_from_client = csockid.recv(100)
+
+        hostname = data_from_client
+
+        result = search(table, hostname)
 
 
-    #search for hostname
-    result = search(table,hostname)
-
-    #reply to client
-    if result=-1:
-        msg= 'TS' + hostname +' '+ "- NS"
-        csockid.send(msg.encode('utf-8'))
-
-    else:
-        msg= result
-        csockid.send(msg.encode('utf-8'))
+        if result =-1:
+            msg= 'TS' + hostname +' '+ "- NS"
+            print(msg)
+            csockid.send(msg.encode('utf-8'))
+        else:
+            msg= result
+            csockid.send(msg.encode('utf-8'))
 
 
     #closś the server socket    
@@ -72,7 +68,7 @@ def server(table, rsListenPort):
     
     # read in arguments from command
     args = str(sys.argv)
-    print args
+    print args ("Argument:" + args)
     rsListenPort = args[0]
     
     # read in file
