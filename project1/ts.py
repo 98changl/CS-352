@@ -73,7 +73,7 @@ def main():
     
     # read in arguments from command
     
-    tsListenPort = sys.argv[1]
+    tsListenPort = int( sys.argv[1] )
     print ("Port: " + tsListenPort)
     
     # read in file
