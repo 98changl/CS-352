@@ -88,7 +88,7 @@ def main():
         inputs = line.split()
         
         # check to see if the split is valid
-        print(inputs)
+        #print(inputs)
         
         # set up variables
         hostname = inputs[0]
