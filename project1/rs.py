@@ -27,7 +27,9 @@ def server(table, rsListenPort):
         exit()
 
     #server_binding = ('', rsListenPort)
-    rs.bind(server_binding)
+    rs.bind( ('', rsListenPort) )
+    print("[S]: Server bind created")
+
 
     rs.listen(1)
     host = socket.gethostname()
@@ -37,7 +39,7 @@ def server(table, rsListenPort):
 
 
     while True:
-        csockid, addr = rs.accept(100)
+        csockid, addr = rs.accept()
         print ("[S]: Got a connection request from a client at {}".format(addr))
 
 
@@ -70,7 +72,7 @@ def main():
     # read in arguments from command
     arg = sys.argv[1]
     rsListenPort = int(arg)
-    print(rsListenPort)
+    print (rsListenPort)
     
     # read in file
     f = open ("PROJI-DNSRS.txt", "r")
