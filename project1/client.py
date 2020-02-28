@@ -6,24 +6,27 @@ import socket
 import sys
 
 def client(table, rsHostname, rsListenPort, tsListenPort):
-    # connect to rs server
-    try:
-        rs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        print("[C]: Client socket created")
-    except socket.error as err:
-        print('socket open error: {} \n'.format(err))
-        exit()
-        
-    # Define the port on which you want to connect to the server
-    # port = 50007
-    localhost_addr = socket.gethostbyname(socket.gethostname())
 
-    # connect to the server on local machine
-    rs_server_binding = (localhost_addr, rsListenPort)
-    #print(rs_server_binding)
-    rs.connect(rs_server_binding)
-    
+    # connect to rs server
     for name in table:
+
+        try:
+            rs = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            print("[C]: Client socket created")
+        except socket.error as err:
+            print('socket open error: {} \n'.format(err))
+            exit()
+        
+        # Define the port on which you want to connect to the server
+        # port = 50007
+        localhost_addr = socket.gethostbyname(socket.gethostname())
+
+        # connect to the server on local machine
+        rs_server_binding = (localhost_addr, rsListenPort)
+        #print(rs_server_binding)
+        rs.connect(rs_server_binding)
+    
+    
         # send data to the server
         rs.send( name )
 
@@ -73,10 +76,10 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
             resolve.write( data_from_server )
     
     # close the client socket
-    resolve.close()
-    rs.close()
-    ts.close()
-    exit()
+        resolve.close()
+        rs.close()
+        ts.close()
+        #exit()
     
 def main():
     if len(sys.argv) < 3:
