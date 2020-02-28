@@ -12,11 +12,15 @@ class DNSnode:
         self.address = address
         self.flag = flag
 
+    def _str_(self):
+        return str(self.hostname,self.address, self.flag)
+
 def search(table, hostname):
-    for node in table:
-        if node.hostname == hostname:
-            return node.hostname, node.address, node.flag
+    for item in table:
+        if item.hostname == hostname:
+            return item
     return -1
+
 
 def server(table, rsListenPort):
     try:
@@ -31,11 +35,13 @@ def server(table, rsListenPort):
     print("[S]: Server bind created")
 
 
-    rs.listen(1)
+    rs.listen(10)
     host = socket.gethostname()
     print("[S]: Server host name is {}".format(host))
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
+
+    #csockid, addr = rs.accept()
 
 
     while True:
@@ -44,14 +50,17 @@ def server(table, rsListenPort):
 
 
         data_from_client = csockid.recv(100)
+        #print("print the data line 47"+ data_from_client)
 
         hostname = data_from_client
+        #print("printing the host name line 50" + hostname)
 
-        result = search(table, hostname)
+        result = search(table, data_from_client)
+        print(result)
 
 
         if result == -1:
-            msg= 'TS' + hostname +' '+ "- NS"
+            msg= socket.gethostname() +' '+ "- NS"
             print(msg)
             csockid.send(msg.encode('utf-8'))
         else:
@@ -97,6 +106,7 @@ def main():
         
         # add the variables into the DNS table 
         table.append( DNSnode(hostname, address, flag) )
+        print(table)
     
     # run the server
     server(table, rsListenPort)
