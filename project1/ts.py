@@ -16,7 +16,7 @@ def search(table, hostname):
     for node in table:
         if node.hostname == hostname:
             return node
-    return NULL
+    return -1
 
 def server(table, tsListenPort):
     try:
@@ -35,6 +35,8 @@ def server(table, tsListenPort):
     print("[S]: Server host name is {}".format(host))
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
+
+    #csockid, addr = ts.accept()
     
     while True:
         # connect with client
@@ -51,7 +53,7 @@ def server(table, tsListenPort):
         result = search(table, hostname)
     
         # reply to client
-        if result == NULL:
+        if result == -1:
             # send error message to client
             msg = data_from_client + " - ERROR: HOST NOT FOUND"
             print (msg)
