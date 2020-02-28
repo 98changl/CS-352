@@ -1,6 +1,6 @@
 0. Names
 Liman Chang   lc931
-Manpreet // add information here
+Manpreet Singh ms2522
 
 1. How we implemented recurive client
 For the client, we first created a soeckt connection to the rs DNS server.
