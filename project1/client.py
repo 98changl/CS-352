@@ -20,6 +20,7 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
 
     # connect to the server on local machine
     rs_server_binding = (localhost_addr, rsListenPort)
+    print(rs_server_binding)
     rs.connect(rs_server_binding)
     
     while name in table:
@@ -76,14 +77,17 @@ def main():
         exit()
     
     # read in arguments from command
-    args = str(sys.argv)
-    print ( args )
+    #args = str(sys.argv)
+    #print ( args )
+    
     
     # convert arguments into strings to read into client
-    rsHostname = args[0]
-    rsListenPort = args[1]
-    tsListenPort = args[2]
-    del args
+    rsHostname = str(sys.argv[1])
+    rsListenPort = int(sys.argv[2])
+    tsListenPort = int(sys.argv[3])
+    print(rsHostname)
+    print(rsListenPort)
+    print(tsListenPort)
     
     # read in file
     f = open("PROJI-HNS.txt", "r")
