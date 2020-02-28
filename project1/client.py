@@ -20,15 +20,15 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
 
     # connect to the server on local machine
     rs_server_binding = (localhost_addr, rsListenPort)
-    print(rs_server_binding)
+    #print(rs_server_binding)
     rs.connect(rs_server_binding)
     
-    while name in table:
+    for name in table:
         # send data to the server
         rs.send( name )
 
         # Receive data from the server
-        data_from_server = rs.recv(100)
+        data_from_server = rs.recv(1000)
         print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
         # open text file to write
@@ -38,6 +38,11 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
         hostname = data[0]
         address = data[1]
         flag = data[2]
+        #print(data)
+        #print(hostname)
+
+
+
 
         if address != "-":
             # output to file here
@@ -50,6 +55,8 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
             except socket.error as err:
                 print('socket open error: {} \n'.format(err))
                 exit()
+
+
 
             # connect to the server on local machine
             ts_server_binding = (hostname, tsListenPort) # the returned host from rs is the ts hostname
@@ -85,9 +92,9 @@ def main():
     rsHostname = str(sys.argv[1])
     rsListenPort = int(sys.argv[2])
     tsListenPort = int(sys.argv[3])
-    print(rsHostname)
-    print(rsListenPort)
-    print(tsListenPort)
+    #print(rsHostname)
+    #print(rsListenPort)
+    #print(tsListenPort)
     
     # read in file
     f = open("PROJI-HNS.txt", "r")
@@ -99,7 +106,7 @@ def main():
     # populate the list with hostnames
     for line in read:
         # check to see if the line is valid
-        print( line )
+        #print( line )
         
         # add the hostname into the list
         table.append( line )
