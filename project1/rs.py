@@ -26,7 +26,7 @@ def server(table, rsListenPort):
         print('socket open error: {}\n'.format(err))
         exit()
 
-    server_binding = ('', rsListenPort)
+    #server_binding = ('', rsListenPort)
     rs.bind(server_binding)
 
     rs.listen(1)
@@ -48,28 +48,29 @@ def server(table, rsListenPort):
         result = search(table, hostname)
 
 
-        if result =-1:
+        if result == -1:
             msg= 'TS' + hostname +' '+ "- NS"
             print(msg)
             csockid.send(msg.encode('utf-8'))
         else:
             msg= result
+            print(msg)
             csockid.send(msg.encode('utf-8'))
 
 
-    #closś the server socket    
-    rs.Close()
+    #close the server socket    
+    rs.close()
     exit()
 
-    def main():
+def main():
     if len(sys.argv) < 1:
         print('not enough arguments error: {} \n'.format(err))
         exit()
     
     # read in arguments from command
-    args = str(sys.argv)
-    print args ("Argument:" + args)
-    rsListenPort = args[0]
+    arg = sys.argv[1]
+    rsListenPort = int(arg)
+    print(rsListenPort)
     
     # read in file
     f = open ("PROJI-DNSRS.txt", "r")
@@ -96,7 +97,7 @@ def server(table, rsListenPort):
         table.append( DNSnode(hostname, address, flag) )
     
     # run the server
-    server(table, tsListenPort)
+    server(table, rsListenPort)
     exit()
 
 
