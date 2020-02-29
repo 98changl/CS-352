@@ -36,7 +36,7 @@ def server(table, tsListenPort):
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
 
-    #csockid, addr = ts.accept()
+
     
     while True:
         # connect with client
@@ -76,7 +76,7 @@ def main():
     # read in arguments from command
     arg = sys.argv[1]
     tsListenPort = int( arg )
-    print (tsListenPort)
+    
     
     # read in file
     f = open("PROJI-DNSTS.txt", "r")
