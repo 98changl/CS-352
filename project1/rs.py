@@ -41,7 +41,7 @@ def server(table, rsListenPort):
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
 
-    #csockid, addr = rs.accept()
+    
 
 
     while True:
@@ -50,13 +50,13 @@ def server(table, rsListenPort):
 
 
         data_from_client = csockid.recv(100)
-        #print("print the data line 47"+ data_from_client)
+        
 
         hostname = data_from_client
-        #print("printing the host name line 50" + hostname)
+        
 
         result = search(table, data_from_client)
-        print(result)
+        
 
 
         if result == -1:
@@ -106,7 +106,7 @@ def main():
         
         # add the variables into the DNS table 
         table.append( DNSnode(hostname, address, flag) )
-        print(table)
+        
     
     # run the server
     server(table, rsListenPort)
