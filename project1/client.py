@@ -7,7 +7,7 @@ import sys
 
 def client(table, rsHostname, rsListenPort, tsListenPort):
 
-    # connect to rs server
+    resolve = open("RESOLVED.txt", "w")
     for name in table:
 
         try:
@@ -35,14 +35,13 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
         print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
         # open text file to write
-        resolve = open("RESOLVED.txt", "w")
+        #resolve = open("RESOLVED.txt", "w")
 
         data = data_from_server.split()
         hostname = data[0]
         address = data[1]
         flag = data[2]
-        #print(data)
-        #print(hostname)
+        
 
 
 
@@ -75,10 +74,10 @@ def client(table, rsHostname, rsListenPort, tsListenPort):
             # write to file
             resolve.write( data_from_server )
     
-    # close the client socket
-        resolve.close()
+         # close the client socket
         rs.close()
         ts.close()
+    resolve.close()
         #exit()
     
 def main():
@@ -95,9 +94,7 @@ def main():
     rsHostname = str(sys.argv[1])
     rsListenPort = int(sys.argv[2])
     tsListenPort = int(sys.argv[3])
-    #print(rsHostname)
-    #print(rsListenPort)
-    #print(tsListenPort)
+    
     
     # read in file
     f = open("PROJI-HNS.txt", "r")
