@@ -28,6 +28,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     # create socket connections with ts1
     try:
         ts1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        ts1.settimeout(5)
         print("[S]: Server socket created")
     except socket.error as err:
         print('socket open error: {}\n'.format(err))
@@ -39,6 +40,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     # create socket connections with ts2
     try:
         ts2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        ts2.settimeout(5)
         print("[S]: Server socket created")
     except socket.error as err:
         print('socket open error: {}\n'.format(err))
@@ -64,8 +66,6 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         if data_from_client == ""
             break;
 
-        ts1sockid.settimeout(5)
-        ts2sockid.settimeout(5)
         
         # send data to servers
         ts1sockid.send( data_from_client ) 
