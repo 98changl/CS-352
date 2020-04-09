@@ -63,10 +63,15 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         # client needs to send something to indicate end, or implement a timer mechanic 
         if data_from_client == ""
             break;
+
+        ts1sockid.settimeout(5)
+        ts2sockid.settimeout(5)
         
         # send data to servers
         ts1sockid.send( data_from_client ) 
         ts2sockid.send( data_from_client )
+
+
         
         data_from_ts1 = ts1sockid.recv(100)
         # need to implement time delay function here
