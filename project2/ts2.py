@@ -74,7 +74,7 @@ def main():
     
     # read in arguments from command
     arg = sys.argv[1]
-    tsListenPort = int( arg )
+    ts2ListenPort = int( arg )
     
     
     # read in file
@@ -82,6 +82,7 @@ def main():
     
     # set up DNS table
     table = []
+    
     read = f.readlines()
     
     # populate the DNS table with values
@@ -101,7 +102,7 @@ def main():
         table.append( DNSnode(hostname, address, flag) )
     
     # run the server
-    server(table, ts1ListenPort)
+    server(table, ts2ListenPort)
     exit()
     
 if __name__ == "__main__":
