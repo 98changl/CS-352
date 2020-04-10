@@ -91,13 +91,11 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                     msg = data_from_ts2
                     print (msg)
                     csockid.send(msg.encode('utf-8'))
-                else:
-                    # send an error message
-                    msg = data_from_client + " - ERROR: HOST NOT FOUND"
-                    print (msg)
-                    csockid.send(msg.encode('utf-8'))
+              
             except socket.timeout:
-                csockid.send(data_from_client "- Error:HOST NOT FOUND")
+                msg = data_from_client + " - ERROR: HOST NOT FOUND"
+                print(msg)
+                csockid.send(msg.encode('utf-8'))
 
 
     # close all sockets    
