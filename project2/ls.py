@@ -113,19 +113,24 @@ def main():
         exit()
     
     # read in arguments from command
-    lsListenPort = int(sys.argv[1])
+    arg = sys.argv[1]
+    lsListenPort = int(arg)
     #print (lsListenPort)
     
-    ts1Hostname = str(sys.argv[2])
+    arg = sys.argv[2]
+    ts1Hostname = str(arg)
     #print (ts1Hostname)
     
-    ts1ListenPort = int(sys.argv[3])
+    arg = sys.argv[3]
+    ts1ListenPort = int(arg)
     #print (ts1ListenPort)
     
-    ts2Hostname = str(sys.argv[4])
+    arg = sys.argv[4]
+    ts2Hostname = str(arg)
     #print (ts2Hostname)
     
-    ts2ListenPort = int(sys.argv[5])
+    arg = sys.argv[5]
+    ts2ListenPort = int(arg)
     #print (ts2ListenPort)
     
     # run the server
