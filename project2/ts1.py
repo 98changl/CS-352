@@ -66,7 +66,7 @@ def main():
     
     # read in arguments from command
     arg = sys.argv[1]
-    tsListenPort = int(arg)
+    ts1ListenPort = int(arg)
     
     # read in file
     f = open("PROJ2-DNSTS1.txt", "r")
