@@ -41,7 +41,7 @@ def client(table, lsHostname, lsListenPort):
         #hostname = data[0]
         #address = data[1]
         #flag = data[2]
-        resolve.write(data_from_server)
+        resolve.write(data_from_server + '\n')
         
     resolve.close()
     exit()
@@ -68,7 +68,7 @@ def main():
         #print( line )
         
         # add the hostname into the list
-        table.append( line )
+        table.append( line.strip() )
     
     client(table, lsHostname, lsListenPort)
     exit()
