@@ -10,7 +10,7 @@ Once one of the two above conditions have been met, the server has a recv() call
 
 
 2. Currently known issues with code:
-The servers persist when the connection to client closes.
+The only known issues with the code is detecting socket closures for our ts server.
 
 3. Problems we encountered: 
 One problem we encountered was with our search function. But we were able to solve that issue later on throughout the debugging process.
