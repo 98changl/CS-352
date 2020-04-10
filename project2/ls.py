@@ -58,14 +58,14 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         # loop for processing data
         while True:
             # recieve a node from client
-            data_from_client = csockid.recv(100)
+            data_from_client = csockid.recv(200)
 
             # send data to servers
             ts1.send( data_from_client ) 
             ts2.send( data_from_client )
 
             try:
-                data_from_ts1 = ts1.recv(100)
+                data_from_ts1 = ts1.recv(200)
                 msg = data_from_ts1
                 #print (msg)
                 csockid.send(msg.encode('utf-8'))
@@ -76,7 +76,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 data_from_ts1 = ""
 
             try:
-                data_from_ts2 = ts2.recv(100)
+                data_from_ts2 = ts2.recv(200)
                 msg = data_from_ts2
                 #print (msg)
                 csockid.send(msg.encode('utf-8'))
