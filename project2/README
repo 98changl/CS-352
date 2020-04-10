@@ -3,12 +3,17 @@ Liman Chang   lc931
 Manpreet Singh ms2522
 
 1. How we implemented ts tracking in ls
+The ls does not track which ts it is recieving data from. 
+Instead, it sends the hostname to all ts servers, and waits for each server to send a reply.
+The ls has a recv() call to the first ts, and wait for either a reply or until the timeout is reached.
+Once one of the two above conditions have been met, the server has a recv() call to the second ts.
 
 
 2. Currently known issues with code:
-Our implemented search method always returns no match found.
+The servers persist when the connection to client closes.
 
 3. Problems we encountered: 
+One problem we encountered was with our search function.
 
 4. What did we learn?
-
+We learned that 
