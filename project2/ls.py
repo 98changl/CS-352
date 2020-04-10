@@ -35,7 +35,6 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     
     localhost_addr = socket.gethostbyname(socket.gethostname())
     ts1_server_binding = (localhost_addr, ts1ListenPort)
-    #print(rs_server_binding)
     ts1.connect(ts1_server_binding)
 	
     # create socket connections with ts2
@@ -49,7 +48,6 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     
     localhost_addr = socket.gethostbyname(socket.gethostname())
     ts2_server_binding = (localhost_addr, ts2ListenPort)
-    #print(rs_server_binding)
     ts2.connect(ts2_server_binding)
     
     # accept all socket requests
@@ -62,11 +60,11 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         data_from_client = csockid.recv(100)
 
         # send data to servers
-        ts1sockid.send( data_from_client ) 
-        ts2sockid.send( data_from_client )
+        ts1.send( data_from_client ) 
+        ts2.send( data_from_client )
         
         try:
-            data_from_ts1 = ts1sockid.recv(100)
+            data_from_ts1 = ts1.recv(100)
         
             # check server results and reply to client
             if data_from_ts1 != "":
@@ -76,12 +74,12 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 csockid.send(msg.encode('utf-8'))
                 continue
               
-        except ts1sockid.timeout:
+        except ts1.timeout:
             print ("timeout 1")
             data_from_ts1 = ""
         
         try:
-            data_from_ts2 = ts2sockid.recv(100)
+            data_from_ts2 = ts2.recv(100)
             
             # check server results and reply to client
             if data_from_ts2 != "":
@@ -91,7 +89,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 csockid.send(msg.encode('utf-8'))
                 continue
               
-	except ts2sockid.timeout:
+	except ts2.timeout:
             print ("timeout 2")
             data_from_ts2 = ""
             
