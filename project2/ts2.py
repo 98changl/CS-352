@@ -75,7 +75,7 @@ def main():
         table.append( line.strip() );
     
     # run the server
-    server(table, ts1ListenPort)
+    server(table, ts2ListenPort)
     exit()
     
 if __name__ == "__main__":
