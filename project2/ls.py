@@ -57,7 +57,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     print ("[S]: Got a connection request from a client at {}".format(addr))
     
     # loop for processing data
-    while true:
+    while True:
         # recieve a node from client
         data_from_client = csockid.recv(100)
 
