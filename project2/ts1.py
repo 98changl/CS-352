@@ -50,13 +50,10 @@ def server(table, ts1ListenPort):
         msg = search(table, data)
     
         # reply to ls
-        if msg == "":
-            # send error message to client
-            break
-        else:
-            # send node data as a string to client
+        if msg != "":
             print(msg)
             ls.send(msg.encode('utf-8'))
+        # server sends nothing on failure
     
     # close the server socket
     ts1.close()
