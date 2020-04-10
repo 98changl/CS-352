@@ -40,7 +40,7 @@ def server(table, ts2ListenPort):
 
             node[0] = node[0].lower()
             if node[0] == data:
-                msg = node[0]
+                msg = line
                 break
 
         # reply to ls
