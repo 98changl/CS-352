@@ -29,7 +29,8 @@ def server(table, ts1ListenPort):
     
     while True:
         # recieve ls input
-        data = ls.recv(100)
+        data = ls.recv(200)
+        data = data.lower()
         msg = ""
 
         # search for hostname
@@ -38,7 +39,7 @@ def server(table, ts1ListenPort):
             node = line.split()
 
             if node[0] == data:
-                msg = node[0]
+                msg = line
                 break
 
         # reply to ls
