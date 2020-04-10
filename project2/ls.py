@@ -82,6 +82,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 continue
               
         except ts1sockid.timeout:
+            print ("timeout 1")
             data_from_ts1 = ""
         
         try:
@@ -95,7 +96,8 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 csockid.send(msg.encode('utf-8'))
                 continue
               
-		except ts2sockid.timeout:
+	    except ts2sockid.timeout:
+            print ("timeout 2")
             data_from_ts2 = ""
             
         if data_from_ts1 = ""
@@ -116,24 +118,19 @@ def main():
         exit()
     
     # read in arguments from command
-    arg = sys.argv[1]
-    lsListenPort = int(arg)
+    lsListenPort = int(sys.argv[1])
     print (lsListenPort)
     
-    arg = sys.argv[2]
-    ts1Hostname = arg
+    ts1Hostname = str(sys.argv[2])
     print (ts1Hostname)
     
-    arg = sys.argv[3]
-    ts1ListenPort = int(arg)
+    ts1ListenPort = int(sys.argv[3])
     print (ts1ListenPort)
     
-    arg = sys.argv[4]
-    ts2Hostname = arg
+    ts2Hostname = str(sys.argv[4])
     print (ts2Hostname)
     
-    arg = sys.argv[5]
-    ts2ListenPort = int(arg)
+    ts2ListenPort = int(sys.argv[5])
     print (ts2ListenPort)
     
     # run the server
@@ -142,12 +139,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    #t1 = threading.Thread(name='server', target=server)
-    #t1.start()
-
-    #time.sleep(random.random() * 5)
-    #t2 = threading.Thread(name='client', target=client)
-    #t2.start()
-
-    #time.sleep(5)
-    print("Done.")
