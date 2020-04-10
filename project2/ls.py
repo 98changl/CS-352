@@ -50,7 +50,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     localhost_addr = socket.gethostbyname(socket.gethostname())
     ts2_server_binding = (localhost_addr, ts2ListenPort)
     #print(rs_server_binding)
-    ts2.connect(ts1_server_binding)
+    ts2.connect(ts2_server_binding)
     
     # accept all socket requests
     csockid, addr = ls.accept()
