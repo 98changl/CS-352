@@ -60,11 +60,6 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     while true:
         # recieve a node from client
         data_from_client = csockid.recv(100)
-        
-        # client needs to send something to indicate end, or implement a timer mechanic 
-        if data_from_client == ""
-            print ("Data from client ended")
-            break;
 
         # send data to servers
         ts1sockid.send( data_from_client ) 
@@ -96,12 +91,12 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 csockid.send(msg.encode('utf-8'))
                 continue
               
-	    except ts2sockid.timeout:
+	except ts2sockid.timeout:
             print ("timeout 2")
             data_from_ts2 = ""
             
-        if data_from_ts1 = ""
-            if data_from_ts2 = ""
+        if data_from_ts1 = "":
+            if data_from_ts2 = "":
                 msg = data_from_client + " - ERROR: HOST NOT FOUND"
                 print(msg)
                 csockid.send(msg.encode('utf-8'))
@@ -119,19 +114,19 @@ def main():
     
     # read in arguments from command
     lsListenPort = int(sys.argv[1])
-    print (lsListenPort)
+    #print (lsListenPort)
     
     ts1Hostname = str(sys.argv[2])
-    print (ts1Hostname)
+    #print (ts1Hostname)
     
     ts1ListenPort = int(sys.argv[3])
-    print (ts1ListenPort)
+    #print (ts1ListenPort)
     
     ts2Hostname = str(sys.argv[4])
-    print (ts2Hostname)
+    #print (ts2Hostname)
     
     ts2ListenPort = int(sys.argv[5])
-    print (ts2ListenPort)
+    #print (ts2ListenPort)
     
     # run the server
     server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
