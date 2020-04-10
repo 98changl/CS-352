@@ -38,6 +38,7 @@ def server(table, ts1ListenPort):
             # splits the read in string into an array of its element
             node = line.split()
 
+            node[0] = node[0].lower()
             if node[0] == data:
                 msg = line
                 break
