@@ -5,21 +5,6 @@ import random
 import socket
 import sys
 
-def search(table, hostname):
-    for line in table:
-        # splits the read in string into an array of its elements
-        node = line.split()
-        
-        # check to see if the split is valid
-        #print(inputs)
-        
-        # set up variables
-        name = node[0]
-        
-        if name == hostname:
-            return line
-    return ""
-
 def server(table, ts1ListenPort):
     try:
         ts1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -47,7 +32,18 @@ def server(table, ts1ListenPort):
         data = ls.recv(100)
         
         # search for hostname
-        msg = search(table, data)
+        for line in table:
+            # splits the read in string into an array of its elements
+            node = line.split()
+        
+            # check to see if the split is valid
+            print(node[0])
+            
+            if node[0] == hostname:
+                name = node[0]
+                break
+         
+        msg = name
     
         # reply to ls
         if msg != "":
