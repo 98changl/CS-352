@@ -66,34 +66,39 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         if data_from_client == ""
             break;
 
-        
-        # send data to servers
-        ts1sockid.send( data_from_client ) 
-        ts2sockid.send( data_from_client )
+        while true:
+            try:
+                # send data to servers
+                ts1sockid.send( data_from_client ) 
+                ts2sockid.send( data_from_client )
 
 
         
-        data_from_ts1 = ts1sockid.recv(100)
-        # need to implement time delay function here
-        data_from_ts2 = ts2sockid.recv(100)
+                data_from_ts1 = ts1sockid.recv(100)
+                # need to implement time delay function here
+                data_from_ts2 = ts2sockid.recv(100)
         
-        # check server results and reply to client
-        if data_from_ts1 != "":
-            # forward response to client
-            msg = data_from_ts1
-            print (msg)
-            csockid.send(msg.encode('utf-8'))
+                # check server results and reply to client
+                if data_from_ts1 != "":
+
+                    # forward response to client
+                    msg = data_from_ts1
+                    print (msg)
+                    csockid.send(msg.encode('utf-8'))
          
-        if data_from_ts2 != "":
-            # forward response to client
-            msg = data_from_ts2
-            print (msg)
-            csockid.send(msg.encode('utf-8'))
-        else:
-            # send an error message
-            msg = data_from_client + " - ERROR: HOST NOT FOUND"
-            print (msg)
-            csockid.send(msg.encode('utf-8'))
+                if data_from_ts2 != "":
+                    # forward response to client
+                    msg = data_from_ts2
+                    print (msg)
+                    csockid.send(msg.encode('utf-8'))
+                else:
+                    # send an error message
+                    msg = data_from_client + " - ERROR: HOST NOT FOUND"
+                    print (msg)
+                    csockid.send(msg.encode('utf-8'))
+            except socket.timeout:
+                csockid.send(data_from_client "- Error:HOST NOT FOUND")
+
 
     # close all sockets    
     ls.close()
