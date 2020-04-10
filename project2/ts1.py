@@ -42,7 +42,7 @@ def server(table, ts1ListenPort):
     ls, addr = ts1.accept()
     print ("[S]: Got a connection request from a ls server at {}".format(addr))
         
-    while true:
+    while True:
         # recieve ls input
         data = ls.recv(100)
         
