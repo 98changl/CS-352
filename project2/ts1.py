@@ -31,6 +31,8 @@ def server(table, ts1ListenPort):
         # recieve ls input
         data = ls.recv(100)
         
+        msg = ""
+        
         # search for hostname
         for line in table:
             # splits the read in string into an array of its elements
@@ -39,12 +41,10 @@ def server(table, ts1ListenPort):
             # check to see if the split is valid
             print(node[0])
             
-            if node[0] == hostname:
-                name = node[0]
+            if node[0] == data:
+                msg = node[0]
                 break
-         
-        msg = name
-    
+        
         # reply to ls
         if msg != "":
             print(msg)
@@ -81,12 +81,3 @@ def main():
     
 if __name__ == "__main__":
     main()
-    #t1 = threading.Thread(name='server', target=server)
-    #t1.start()
-
-    #time.sleep(random.random() * 5)
-    #t2 = threading.Thread(name='client', target=client)
-    #t2.start()
-
-    #time.sleep(5)
-    print("Done.")
