@@ -73,7 +73,7 @@ def main():
     
     # populate the DNS table with values
     for line in read:
-        table.append(line);
+        table.append( line.strip() );
     
     # run the server
     server(table, ts1ListenPort)
