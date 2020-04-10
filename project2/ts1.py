@@ -51,7 +51,7 @@ def server(table, ts1ListenPort):
                 ls.send(msg.encode('utf-8'))
             # server sends nothing on failure
     except socket.error:
-        printf([S]: Lost connection)
+        printf("[S]: Lost connection")
     
     # close the server socket
     ts1.close()
