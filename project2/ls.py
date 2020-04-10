@@ -81,7 +81,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
             csockid.send(msg.encode('utf-8'))
             continue
               
-	    except socket.timeout:
+        except socket.timeout:
             print ("timeout 2")
             data_from_ts2 = ""
             
