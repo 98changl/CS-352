@@ -8,30 +8,30 @@ import sys
 def client(table, lsHostname, lsListenPort):
 
     resolve = open("RESOLVED.txt", "w")
-    for name in table:
-
-        try:
-            ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            print("[C]: Client socket created")
-        except socket.error as err:
-            print('socket open error: {} \n'.format(err))
-            exit()
+    
+    try:
+        ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        print("[C]: Client socket created")
+    except socket.error as err:
+        print('socket open error: {} \n'.format(err))
+        exit()
+    
+    
+    # Define the port on which you want to connect to the server
+    # port = 50007
+    localhost_addr = socket.gethostbyname(socket.gethostname())
+    
+    # connect to the server on local machine
+    ls_server_binding = (localhost_addr, lsListenPort)
+    #print(rs_server_binding)
+    ls.connect(ls_server_binding)
         
-        # Define the port on which you want to connect to the server
-        # port = 50007
-        localhost_addr = socket.gethostbyname(socket.gethostname())
-
-        # connect to the server on local machine
-        ls_server_binding = (localhost_addr, lsListenPort)
-        #print(rs_server_binding)
-        ls.connect(ls_server_binding)
-    
-    
+    for name in table:
         # send data to the server
         ls.send( name )
 
         # Receive data from the server
-        data_from_server = ls.recv(1000)
+        data_from_server = ls.recv(100)
         print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
         # open text file to write
@@ -44,7 +44,7 @@ def client(table, lsHostname, lsListenPort):
         resolve.write(data_from_server)
         
     resolve.close()
-        #exit()
+    exit()
     
 def main():
     if len(sys.argv) < 3:
