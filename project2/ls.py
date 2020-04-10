@@ -28,7 +28,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     try:
         ts1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         ts1.settimeout(5)
-        print("[S]: Server socket created")
+        print("[S]: Server socket for ts1 created")
     except socket.error as err:
         print('socket open error: {}\n'.format(err))
         exit()
@@ -41,7 +41,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     try:
         ts2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         ts2.settimeout(5)
-        print("[S]: Server socket created")
+        print("[S]: Server socket for ts2 created")
     except socket.error as err:
         print('socket open error: {}\n'.format(err))
         exit()
@@ -71,7 +71,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
             continue
               
         except socket.timeout:
-            print ("timeout 1")
+            #print ("timeout 1")
             data_from_ts1 = ""
         
         try:
@@ -82,7 +82,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
             continue
               
         except socket.timeout:
-            print ("timeout 2")
+            #print ("timeout 2")
             data_from_ts2 = ""
             
         if data_from_ts1 == "":
