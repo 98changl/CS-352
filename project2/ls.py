@@ -111,7 +111,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     exit()
 
 def main():
-    if len(sys.argv) < 1:
+    if len(sys.argv) < 5:
         print('not enough arguments error: {} \n'.format(err))
         exit()
     
