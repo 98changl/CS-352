@@ -1,23 +1,9 @@
-
 import threading
 import time
 import random
 
 import socket
 import sys
-
-# object to store three variables
-class DNSnode:
-    def __init__(self, hostname, address, flag):
-        self.hostname = hostname
-        self.address = address 
-        self.flag = flag
-
-def search(table, hostname):
-    for node in table:
-        if node.hostname == hostname:
-            return node
-    return -1
 
 def server(table, ts2ListenPort):
     try:
@@ -37,31 +23,32 @@ def server(table, ts2ListenPort):
     localhost_ip = (socket.gethostbyname(host))
     print("[S]: Server IP address is {}".format(localhost_ip))
 
-
-    
+    # connect with ls server
+    ls, addr = ts2.accept()
+    print ("[S]: Got a connection request from a ls server at {}".format(addr))
+        
     while True:
-        # connect with client
-        csockid, addr = ts2.accept()
-        print ("[S]: Got a connection request from a client at {}".format(addr))
-    
-        # recieve client input
-        data_from_client = csockid.recv(100)
-    
-        # translate client message into DNS table format
-        hostname = data_from_client
-
+        # recieve ls input
+        data = ls.recv(100)
+        msg = ""
+        
         # search for hostname
-        result = search(table, hostname)
-    
-        # reply to client
-        if result == -1:
-            # send error message to client
-            break
-        else:
-            # send node data as a string to client
-            msg = result.hostname + " " + result.address + " " + result.flag
-            print(msg)
-            csockid.send(msg.encode('utf-8'))
+        for line in table:
+            # splits the read in string into an array of its elements
+            node = line.split()
+        
+            # check to see if the split is valid
+            print(node[0])
+            
+            if node[0] == data:
+                msg = node[0]
+                break
+        
+        # reply to ls
+        if msg != "":
+            #print(msg)
+            ls.send(msg.encode('utf-8'))
+        # server sends nothing on failure
     
     # close the server socket
     ts2.close()
@@ -74,45 +61,22 @@ def main():
     
     # read in arguments from command
     arg = sys.argv[1]
-    ts2ListenPort = int( arg )
-    
+    ts2ListenPort = int(arg)
     
     # read in file
     f = open("PROJ2-DNSTS2.txt", "r")
     
     # set up DNS table
     table = []
-    
     read = f.readlines()
     
     # populate the DNS table with values
     for line in read:
-        # splits the read in string into an array of its elements
-        inputs = line.split()
-        
-        # check to see if the split is valid
-        #print(inputs)
-        
-        # set up variables
-        hostname = inputs[0]
-        address = inputs[1]
-        flag = inputs[2]
-        
-        # add the variables into the DNS table 
-        table.append( DNSnode(hostname, address, flag) )
+        table.append( line.strip() );
     
     # run the server
-    server(table, ts2ListenPort)
+    server(table, ts1ListenPort)
     exit()
     
 if __name__ == "__main__":
     main()
-    #t1 = threading.Thread(name='server', target=server)
-    #t1.start()
-
-    #time.sleep(random.random() * 5)
-    #t2 = threading.Thread(name='client', target=client)
-    #t2.start()
-
-    #time.sleep(5)
-    print("Done.")
