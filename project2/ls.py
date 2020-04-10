@@ -54,42 +54,46 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
     csockid, addr = ls.accept()
     print ("[S]: Got a connection request from a client at {}".format(addr))
     
-    # loop for processing data
-    while True:
-        # recieve a node from client
-        data_from_client = csockid.recv(100)
+    try:
+        # loop for processing data
+        while True:
+            # recieve a node from client
+            data_from_client = csockid.recv(100)
 
-        # send data to servers
-        ts1.send( data_from_client ) 
-        ts2.send( data_from_client )
-        
-        try:
-            data_from_ts1 = ts1.recv(100)
-            msg = data_from_ts1
-            print (msg)
-            csockid.send(msg.encode('utf-8'))
-            continue
-              
-        except socket.timeout:
-            #print ("timeout 1")
-            data_from_ts1 = ""
-        
-        try:
-            data_from_ts2 = ts2.recv(100)
-            msg = data_from_ts2
-            print (msg)
-            csockid.send(msg.encode('utf-8'))
-            continue
-              
-        except socket.timeout:
-            #print ("timeout 2")
-            data_from_ts2 = ""
-            
-        if data_from_ts1 == "":
-            if data_from_ts2 == "":
-                msg = data_from_client + " - ERROR: HOST NOT FOUND"
-                print(msg)
+            # send data to servers
+            ts1.send( data_from_client ) 
+            ts2.send( data_from_client )
+
+            try:
+                data_from_ts1 = ts1.recv(100)
+                msg = data_from_ts1
+                print (msg)
                 csockid.send(msg.encode('utf-8'))
+                continue
+
+            except socket.timeout:
+                #print ("timeout 1")
+                data_from_ts1 = ""
+
+            try:
+                data_from_ts2 = ts2.recv(100)
+                msg = data_from_ts2
+                print (msg)
+                csockid.send(msg.encode('utf-8'))
+                continue
+
+            except socket.timeout:
+                #print ("timeout 2")
+                data_from_ts2 = ""
+
+            if data_from_ts1 == "":
+                if data_from_ts2 == "":
+                    msg = data_from_client + " - ERROR: HOST NOT FOUND"
+                    print(msg)
+                    csockid.send(msg.encode('utf-8'))
+
+    except: socket.error
+        print("Lost connection to client")
     
     # close all sockets    
     ls.close()
