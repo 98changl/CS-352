@@ -51,15 +51,12 @@ def main():
         print('not enough arguments error: {} \n'.format(err))
         exit()
     
-    
     # convert arguments into strings to read into client
     lsHostname = str(sys.argv[1])
     lsListenPort = int(sys.argv[2])
     
-    
-    
     # read in file
-    f = open("ROJ2-HNS.txt", "r")
+    f = open("PROJ2-HNS.txt", "r")
     
     # set up list of hostnames 
     table = []
