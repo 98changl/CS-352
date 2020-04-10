@@ -33,6 +33,11 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         print('socket open error: {}\n'.format(err))
         exit()
     
+    localhost_addr = socket.gethostbyname(socket.gethostname())
+    ts1_server_binding = (localhost_addr, ts1ListenPort)
+    #print(rs_server_binding)
+    ts1.connect(ts1_server_binding)
+	
     # create socket connections with ts2
     try:
         ts2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -42,13 +47,14 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         print('socket open error: {}\n'.format(err))
         exit()
     
+    localhost_addr = socket.gethostbyname(socket.gethostname())
+    ts2_server_binding = (localhost_addr, ts2ListenPort)
+    #print(rs_server_binding)
+    ts2.connect(ts1_server_binding)
+    
     # accept all socket requests
     csockid, addr = ls.accept()
     print ("[S]: Got a connection request from a client at {}".format(addr))
-    ts1sockid, addr = ts1.accept()
-    print ("[S]: Got a connection request from a ts server at {}".format(addr))
-    ts2sockid, addr = ts2.accept()
-    print ("[S]: Got a connection request from a ts server at {}".format(addr))
     
     # loop for processing data
     while true:
