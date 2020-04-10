@@ -65,31 +65,23 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         
         try:
             data_from_ts1 = ts1.recv(100)
-        
-            # check server results and reply to client
-            if data_from_ts1 != "":
-                # forward response to client
-                msg = data_from_ts1
-                print (msg)
-                csockid.send(msg.encode('utf-8'))
-                continue
+            msg = data_from_ts1
+            print (msg)
+            csockid.send(msg.encode('utf-8'))
+            continue
               
-        except ts1.timeout:
+        except socket.timeout:
             print ("timeout 1")
             data_from_ts1 = ""
         
         try:
             data_from_ts2 = ts2.recv(100)
-            
-            # check server results and reply to client
-            if data_from_ts2 != "":
-                # forward response to client
-                msg = data_from_ts2
-                print (msg)
-                csockid.send(msg.encode('utf-8'))
-                continue
+            msg = data_from_ts2
+            print (msg)
+            csockid.send(msg.encode('utf-8'))
+            continue
               
-	except ts2.timeout:
+	    except socket.timeout:
             print ("timeout 2")
             data_from_ts2 = ""
             
@@ -98,7 +90,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                 msg = data_from_client + " - ERROR: HOST NOT FOUND"
                 print(msg)
                 csockid.send(msg.encode('utf-8'))
-            
+    
     # close all sockets    
     ls.close()
     ts1.close()
