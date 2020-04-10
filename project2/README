@@ -13,7 +13,8 @@ Once one of the two above conditions have been met, the server has a recv() call
 The servers persist when the connection to client closes.
 
 3. Problems we encountered: 
-One problem we encountered was with our search function.
+One problem we encountered was with our search function. But we were able to solve that issue later on throughout the debugging process.
 
 4. What did we learn?
-We learned that 
+We learned that implementing a load balancing DNS server is beneficial to the network due to the fact that it reduces server load. 
+Having a network where we are minimizing server load can help us expand the network. 
