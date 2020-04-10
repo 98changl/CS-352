@@ -27,31 +27,25 @@ def server(table, ts2ListenPort):
     ls, addr = ts2.accept()
     print ("[S]: Got a connection request from a ls server at {}".format(addr))
         
-    try:
-        while True:
-            # recieve ls input
-            data = ls.recv(100)
-            msg = ""
+    while True:
+        # recieve ls input
+        data = ls.recv(100)
+        msg = ""
 
-            # search for hostname
-            for line in table:
-                # splits the read in string into an array of its elements
-                node = line.split()
+        # search for hostname
+        for line in table:
+            # splits the read in string into an array of its element
+            node = line.split()
 
-                # check to see if the split is valid
-                #print(node[0])
+            if node[0] == data:
+                msg = node[0]
+                break
 
-                if node[0] == data:
-                    msg = node[0]
-                    break
-
-            # reply to ls
-            if msg != "":
-                #print(msg)
-                ls.send(msg.encode('utf-8'))
-            # server sends nothing on failure
-    except socket.error:
-        printf("[S]: Lost connection")
+        # reply to ls
+        if msg != "":
+            #print(msg)
+            ls.send(msg.encode('utf-8'))
+        # server sends nothing on failure
     
     # close the server socket
     ts2.close()
