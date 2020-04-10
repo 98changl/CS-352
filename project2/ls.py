@@ -33,9 +33,6 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         print('socket open error: {}\n'.format(err))
         exit()
     
-    ts1.bind( (ts1Hostname, ts1ListenPort) )
-    print("[S]: ts1 server bind created")
-    
     # create socket connections with ts2
     try:
         ts2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -45,9 +42,6 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
         print('socket open error: {}\n'.format(err))
         exit()
     
-    ts2.bind( (ts2Hostname, ts2ListenPort) )
-    print("[S]: ts2 server bind created")
-
     # accept all socket requests
     csockid, addr = ls.accept()
     print ("[S]: Got a connection request from a client at {}".format(addr))
