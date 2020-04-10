@@ -67,7 +67,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
             try:
                 data_from_ts1 = ts1.recv(100)
                 msg = data_from_ts1
-                print (msg)
+                #print (msg)
                 csockid.send(msg.encode('utf-8'))
                 continue
 
@@ -78,7 +78,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
             try:
                 data_from_ts2 = ts2.recv(100)
                 msg = data_from_ts2
-                print (msg)
+                #print (msg)
                 csockid.send(msg.encode('utf-8'))
                 continue
 
@@ -92,8 +92,8 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
                     print(msg)
                     csockid.send(msg.encode('utf-8'))
 
-    except: socket.error
-        print("Lost connection to client")
+    except socket.error:
+        print("[S]: Lost connection to client")
     
     # close all sockets    
     ls.close()
