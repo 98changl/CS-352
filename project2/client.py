@@ -31,7 +31,7 @@ def client(table, lsHostname, lsListenPort):
         ls.send( name )
 
         # Receive data from the server
-        data_from_server = ls.recv(100)
+        data_from_server = ls.recv(200)
         print("[C]: Data received from server: {}".format(data_from_server.decode('utf-8')))
 
         # open text file to write
