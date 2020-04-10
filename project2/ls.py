@@ -89,7 +89,7 @@ def server(lsListenPort, ts1Hostname, ts1ListenPort, ts2Hostname, ts2ListenPort)
             if data_from_ts1 == "":
                 if data_from_ts2 == "":
                     msg = data_from_client + " - ERROR: HOST NOT FOUND"
-                    print(msg)
+                    #print(msg)
                     csockid.send(msg.encode('utf-8'))
 
     except socket.error:
