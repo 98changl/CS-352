@@ -30,7 +30,6 @@ def server(table, ts1ListenPort):
     while True:
         # recieve ls input
         data = ls.recv(100)
-        
         msg = ""
         
         # search for hostname
@@ -47,7 +46,7 @@ def server(table, ts1ListenPort):
         
         # reply to ls
         if msg != "":
-            print(msg)
+            #print(msg)
             ls.send(msg.encode('utf-8'))
         # server sends nothing on failure
     
