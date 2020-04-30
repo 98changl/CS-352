@@ -18,8 +18,16 @@ The routes for the router was added by attaching the IP addresses of the hosts t
 There are no known issues with code.
 
 3. Problems we encountered:
-Encountered issues setting up the virtual machine and getting everything working.
-
+The biggest problem we encountered was setting up the virtual machine for mininet, 
+specifically when it came to transfering the AS352.py file into the mininet.
 
 4. What did we learn?
-IP addresses need to first be properly attached to devices in order to make connections.
+Setting up routes for the router doesn't have to go both ways.
+Ex. IP 
+
+Once a single route between a host and r1 was made,
+the router automatically connects it to every other device in the router.
+Ex. Routing h1-eth0 connects it to r1-eth1, r1-eth2, r1-eth3, and r1-eth4 so long as the devices on r1 were previously set up.
+
+This meant that there was no need to manually IP route devices on the same host.
+Ex. IP route r1-eth1 to r1-eth2 is redundant because they're from the same host.
