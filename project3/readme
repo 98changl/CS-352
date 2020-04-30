@@ -4,6 +4,15 @@ Manpreet Singh ms2522
 
 1. Functionality Implementation:
 
+(1) Set up the IP addresses of all interfaces.
+For each host and the router, we added the appropriate ip address to each device in the host or router.  
+
+(2) Set up the default routes for the hosts.
+
+
+(3) Set up the routes on the router.
+
+
 2. Currently known issues with code:
 There are no known issues with code.
 
