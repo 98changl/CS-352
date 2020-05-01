@@ -5,14 +5,20 @@ Manpreet Singh ms2522
 1. Functionality Implementation:
 
 (1) Set up the IP addresses of all interfaces.
-For each host and the router, we added the appropriate ip address to each device in the hosts.
-This is done by attaching the designated IP 
+For each host and the router, we added the appropriate ip address to each device in the hosts 
+by attaching the designated IP to the desired device with "ip addr add".
 
 (2) Set up the default routes for the hosts.
-The given IP address for each host was added to the default gateway.
+The given IP address for each host device had their default routes set up 
+by routing the newly set up addresses to the hosts' default gateway.
+Ex. default via IP ADDR
 
 (3) Set up the routes on the router.
 The routes for the router was added by attaching the IP addresses of the hosts to the IP address of their respective devices in r1.
+Ex. 10.0.0.2 was routed to 10.0.0.1
+
+This also has no issues because the routed IP addesses for the hosts were already set to their default
+so the address will always be in use by the hosts.
 
 2. Currently known issues with code:
 There are no known issues with code.
@@ -22,8 +28,8 @@ The biggest problem we encountered was setting up the virtual machine for minine
 specifically when it came to transfering the AS352.py file into the mininet.
 
 4. What did we learn?
-Setting up routes for the router doesn't have to go both ways.
-Ex. IP 
+The default route is used to set up a defualt IP address to connect to if no other IP address is used.
+As such, the inputted IP addresses for our hosts will always be used as there are no other addresses set up for the hosts.
 
 Once a single route between a host and r1 was made,
 the router automatically connects it to every other device in the router.
