@@ -25,7 +25,8 @@ There are no known issues with code.
 
 3. Problems we encountered:
 The biggest problem we encountered was setting up the virtual machine for mininet, 
-specifically when it came to transfering the AS352.py file into the mininet.
+specifically when it came to transfering the AS352.py file into the mininet. We tried the Scp command for copying over files  as 
+instructed but still encountered a file not found error. This lead us to having trouble testing the code efficiently.
 
 4. What did we learn?
 The default route is used to set up a defualt IP address to connect to if no other IP address is used.
