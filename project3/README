@@ -20,13 +20,74 @@ Ex. 10.0.0.2 was routed to 10.0.0.1
 This also has no issues because the routed IP addesses for the hosts were already set to their default
 so the address will always be in use by the hosts.
 
+(4) Test your network.
+To test our network, we used a tests.txt file with a list of ping and trace route commands.
+
+test.txt:
+r1 ping -c 4 10.0.0.2
+r1 ping -c 4 192.168.0.2
+r1 ping -c 4 10.0.0.4
+r1 ping -c 4 192.168.0.4
+
+h1 ping -c 4 10.0.0.1
+h1 ping -c 4 192.168.0.1
+h1 ping -c 4 10.0.0.3
+h1 ping -c 4 192.168.0.3
+
+h2 ping -c 4 10.0.0.1
+h2 ping -c 4 192.168.0.1
+h2 ping -c 4 10.0.0.3
+h2 ping -c 4 192.168.0.3
+
+h3 ping -c 4 10.0.0.1
+h3 ping -c 4 192.168.0.1
+h3 ping -c 4 10.0.0.3
+h3 ping -c 4 192.168.0.3
+
+h4 ping -c 4 10.0.0.1
+h4 ping -c 4 192.168.0.1
+h4 ping -c 4 10.0.0.3
+h4 ping -c 4 192.168.0.3
+
+h1 ping -c 4 192.168.0.2
+h1 ping -c 4 10.0.0.4
+h1 ping -c 4 192.168.0.4
+h2 ping -c 4 10.0.0.2
+h2 ping -c 4 10.0.0.4
+h2 ping -c 4 192.168.0.4
+h3 ping -c 4 10.0.0.2
+h3 ping -c 4 192.168.0.2
+h3 ping -c 4 192.168.0.4
+h4 ping -c 4 10.0.0.2
+h4 ping -c 4 10.0.0.4
+h4 ping -c 4 192.168.0.2
+
+h1 traceroute 192.168.0.2
+h1 traceroute 10.0.0.4
+h1 traceroute 192.168.0.4
+h2 traceroute 10.0.0.2
+h2 traceroute 10.0.0.4
+h2 traceroute 192.168.0.4
+h3 traceroute 10.0.0.2
+h3 traceroute 192.168.0.2
+h3 traceroute 192.168.0.4
+h4 traceroute 10.0.0.2
+h4 traceroute 10.0.0.4
+h4 traceroute 192.168.0.2
+
+r1 tcpdump -v -U -i r1-eth1 -x > eth1-dump.txt &
+r1 tcpdump -v -U -i r1-eth2 -x > eth2-dump.txt &
+r1 tcpdump -v -U -i r1-eth3 -x > eth3-dump.txt &
+r1 tcpdump -v -U -i r1-eth4 -x > eth4-dump.txt &
+
 2. Currently known issues with code:
 There are no known issues with code.
 
 3. Problems we encountered:
 The biggest problem we encountered was setting up the virtual machine for mininet, 
-specifically when it came to transfering the AS352.py file into the mininet. We tried the Scp command for copying over files  as 
-instructed but still encountered a file not found error. This lead us to having trouble testing the code efficiently.
+specifically when it came to transfering the AS352.py file into the mininet. 
+We tried the Scp command for copying over files as instructed but still encountered a file not found error. 
+This lead us to let to significant delays in building the project.
 
 4. What did we learn?
 The default route is used to set up a defualt IP address to connect to if no other IP address is used.
